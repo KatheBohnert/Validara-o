@@ -1,8 +1,15 @@
 <?php
 
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+
 namespace App\Controllers;
 
 use DateTime;
+use DateTimeZone;
 
 /**
  * Description of CariController
@@ -66,12 +73,12 @@ class SoundlutionsUtilsController
                     $response = $this->maskEmail();
                     echo $response;
                     break;
-
-                case 'validarAño': // Agregado para manejar la nueva función
+                
+                case 'validarAño':
                     $response = $this->validarAño();
                     echo $response;
-                    break;
-
+                    break;    
+                
                 default:
                     $response = 'Operation not found';
                     echo $response;
@@ -193,7 +200,7 @@ class SoundlutionsUtilsController
         return date('d', $timestamp);
     }
 
-    // Validador de nombres
+    // Validador de nombres inicialmente para el proyecto de IQO Secretaría de movilidad
     public function nameValidator(): string
     {
         $name = $_POST['name'];
@@ -263,7 +270,7 @@ class SoundlutionsUtilsController
             );
         }
 
-        // Enmascarar la parte local desde start hasta el final
+            // Enmascarar la parte local desde start hasta el final
         $localMasked = substr($local, 0, $start) . str_repeat($maskChar, $localLength - $start);
 
         // Enmascarar la parte del dominio desde end hacia atrás
@@ -278,37 +285,37 @@ class SoundlutionsUtilsController
 
     public function validarAño(): string
     {
-        // Obtener la fecha de nacimiento de la entrada del usuario
-        $fechaNacimiento = $_POST['fechaNacimiento'];
+    // Obtener la fecha de nacimiento de la entrada del usuario
+    $fechaNacimiento = $_POST['fechaNacimiento'];
 
-        // Convertir la fecha de nacimiento a un objeto DateTime
-        $fechaNacimientoFormat = new DateTime($fechaNacimiento);
-        $fechaActual = new DateTime();
+    // Convertir la fecha de nacimiento a un objeto DateTime
+    $fechaNacimientoFormat = new DateTime($fechaNacimiento);
+    $fechaActual = new DateTime();
 
-        // Obtener el año actual
-        $añoActual = $fechaActual->format('Y');
+    // Obtener el año actual
+    $añoActual = $fechaActual->format('Y');
 
-        // Obtener el año de nacimiento
-        $añoNacimiento = $fechaNacimientoFormat->format('Y');
+    // Obtener el año de nacimiento
+    $añoNacimiento = $fechaNacimientoFormat->format('Y');
 
-        // Calcular la edad
-        $edad = $fechaActual->diff($fechaNacimientoFormat)->y;
+    // Calcular la edad
+    $edad = $fechaActual->diff($fechaNacimientoFormat)->y;
 
-        // Validar que el año de nacimiento sea menor al año actual
-        if ($añoNacimiento >= $añoActual) {
-            $response = array(
-                "message" => "La fecha de nacimiento debe ser anterior al año actual."
-            );
-        } elseif ($edad > 150) {
-            $response = array(
-                "message" => "La persona no puede tener más de 150 años."
-            );
-        } else {
-            $response = array(
-                "message" => "Fecha de nacimiento válida."
-            );
-        }
-
-        return json_encode($response);
+    // Validar que el año de nacimiento sea menor al año actual
+    if ($yearNacimiento >= $yearActual) {
+        $response = array(
+            "message" => "La fecha de nacimiento debe ser anterior al año actual."
+        );
+    } elseif ($edad > 150) {
+        $response = array(
+            "message" => "La persona no puede tener más de 150 años."
+        );
+    } else {
+        $response = array(
+            "message" => "Fecha de nacimiento válida."
+        );
     }
+
+    return json_encode($response);
+}
 }
