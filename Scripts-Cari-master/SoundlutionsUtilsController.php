@@ -279,7 +279,7 @@ class SoundlutionsUtilsController
     }
 }
 
-    public function validarAño(): string
+public function validarAño(): string
 {
     // Obtener la fecha de nacimiento de la entrada del usuario
     $fechaNacimiento = $_POST['fechaNacimiento'];
