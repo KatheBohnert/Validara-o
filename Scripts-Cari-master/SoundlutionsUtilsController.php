@@ -303,7 +303,7 @@ class SoundlutionsUtilsController
     $edad = $fechaActual->diff($fechaNacimientoFormat)->y;
 
     // Validar que el año de nacimiento sea menor al año actual
-    if ($yearNacimiento >= $yearActual) {
+    if ($añoNacimiento >= $añoActual) {
         $response = array(
             "message" => "La fecha de nacimiento debe ser anterior al año actual."
         );
